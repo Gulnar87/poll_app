@@ -1,18 +1,51 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from "./header/header.component";
+import { PollComponent } from "./pages/poll/poll.component";
+import { VotingComponent } from "./pages/voting/voting.component";
+import { PagesComponent } from "./pages/pages.component";
+import { ChartComponent } from "./pages/chart/chart.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DataService } from "./service.ts/data.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatRadioModule } from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+
+import { FusionChartsModule } from "angular-fusioncharts";
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from "fusioncharts";
+import * as charts from "fusioncharts/fusioncharts.charts";
+import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    PollComponent,
+    VotingComponent,
+    PagesComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FusionChartsModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DataService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

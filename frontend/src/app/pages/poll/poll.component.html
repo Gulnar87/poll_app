@@ -1,0 +1,84 @@
+<form [formGroup]="pollForm" id="pollForm">
+  <div class="row">
+    <div class="col-12">
+      <input
+        formControlName="question"
+        id="question"
+        type="text"
+        class="form-control"
+        (keyup)="updateQuestion($event.target)"
+      />
+
+      <mat-error *ngIf="pollForm.controls['question'].hasError('maxlength')">
+        De tekst mag niet langer zijn dan 115 tekens.
+      </mat-error>
+    </div>
+    <div class="col-12">
+      <div
+        formArrayName="answers"
+        *ngFor="let item of answersForms.controls; let i = index"
+        class="mb-2 mt-2"
+      >
+        <div class="row" [formGroupName]="i">
+          <div class="col-md-10 col-12 mt-3 d-flex align-items-center">
+            <input
+              formControlName="answer"
+              matInput
+              placeholder="Type an answer {{ i + 1 }}"
+              class="form-control"
+              (keyup)="updateAnswer()"
+            />
+
+            <mat-error
+              *ngIf="
+                getAnswersFormGroup(i).controls['answer'].hasError('maxlength')
+              "
+            >
+              De tekst mag niet langer zijn dan 115 tekens.
+            </mat-error>
+          </div>
+
+          <div
+            class="
+              col-md-2 col-12
+              action-buttons
+              d-flex
+              align-items-center
+              mt-3
+            "
+          >
+            <button
+              *ngIf="answersForms.value[i].answer"
+              class="btn btn-outline-secondary"
+              (click)="onRemoveAnswer(i)"
+            >
+              <i class="fa fa-times"></i>
+            </button>
+            <button
+              *ngIf="answersForms.length === i + 1 && answersForms.length <= 9"
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="onAddAnswer()"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 d-flex justify-content-between mt-5">
+      <div>
+        <span>{{ poll.answers.length }}</span
+        >/10 possible answers
+      </div>
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+</form>

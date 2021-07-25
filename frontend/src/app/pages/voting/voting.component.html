@@ -1,0 +1,17 @@
+<div class="row">
+  <h2>
+    {{ poll.question }}
+  </h2>
+
+  <mat-radio-group>
+    <div *ngFor="let answer of poll.answers">
+      <mat-radio-button
+        *ngIf="answer.answer"
+        class="col-12 p-3"
+        [value]="answer"
+      >
+        {{ answer.answer }}
+      </mat-radio-button>
+    </div>
+  </mat-radio-group>
+</div>
