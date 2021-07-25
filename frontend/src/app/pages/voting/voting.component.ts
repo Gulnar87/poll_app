@@ -17,6 +17,10 @@ export class VotingComponent implements OnInit {
 
   subscription: Subscription;
 
+  counttt: number = 0;
+
+  counts: [] = [];
+
   constructor(private data: DataService) {}
 
   ngOnInit() {
@@ -24,8 +28,17 @@ export class VotingComponent implements OnInit {
       if (data) {
         this.poll.question = data.question;
         this.poll.answers = data.answers;
-        console.log(data, "voting com");
+        // console.log(data, "voting com");
       }
     });
+
+    console.log(this.poll.answers, "answers");
+  }
+
+  voteForAnswer(vote) {
+    console.log((vote.voteCount += 1), "count");
+    console.log(vote, "voteee");
+
+    this.data.changeMessage(this.poll);
   }
 }

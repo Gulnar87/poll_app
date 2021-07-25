@@ -3,7 +3,7 @@
     {{ poll.question }}
   </h2>
 
-  <mat-radio-group>
+  <mat-radio-group [(ngModel)]="vote" name="vote">
     <div *ngFor="let answer of poll.answers">
       <mat-radio-button
         *ngIf="answer.answer"
@@ -14,4 +14,14 @@
       </mat-radio-button>
     </div>
   </mat-radio-group>
+
+  <div class="col-12 d-flex justify-content-between mt-5">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="voteForAnswer(vote)"
+    >
+      Vote
+    </button>
+  </div>
 </div>

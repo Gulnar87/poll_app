@@ -10,15 +10,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataService } from "src/app/service.ts/data.service";
 
 export class Answer {
-  // public id: number;
-  constructor(public answer: string) {}
+  // public voteCount?: number = 0;
+  constructor(public answer: string, public voteCount) {}
 }
 
 export class PollData {
-  // question: string;
-
-  // answers: Answer[];
-
   constructor(public question: string, public answers: Answer[]) {}
 }
 @Component({
@@ -40,7 +36,6 @@ export class PollComponent implements OnInit {
   ngOnInit() {
     this.initializeFormGroup();
 
-    console.log("has error");
     // this.pollForm.controls["question"].disable();
     // this.pollForm.controls["question"].hasError("maxlength");
   }
@@ -49,21 +44,22 @@ export class PollComponent implements OnInit {
     this.pollForm = this.fb.group({
       question: [this.poll.question, [Validators.maxLength(80)]],
       answers: this.fb.array(
-        this.poll.answers && this.poll.answers.length > 0
-          ? [
-              ...this.poll.answers.map((el) =>
-                this.fb.group({
-                  answer: [el.answer, Validators.maxLength(80)],
-                })
-              ),
-            ]
-          : [
-              ...[new Answer(undefined)].map((el) =>
-                this.fb.group({
-                  answer: [el.answer, Validators.maxLength(80)],
-                })
-              ),
-            ]
+        // this.poll.answers && this.poll.answers.length > 0
+        // ?
+        [
+          ...this.poll.answers.map((el) =>
+            this.fb.group({
+              answer: [el.answer, Validators.maxLength(80)],
+            })
+          ),
+        ]
+        // : [
+        //     ...[new Answer(undefined)].map((el) =>
+        //       this.fb.group({
+        //         answer: [el.answer, Validators.maxLength(80)],
+        //       })
+        //     ),
+        //   ]
       ),
     });
 

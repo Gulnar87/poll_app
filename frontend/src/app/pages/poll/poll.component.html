@@ -28,14 +28,6 @@
               class="form-control"
               (keyup)="updateAnswer()"
             />
-
-            <mat-error
-              *ngIf="
-                getAnswersFormGroup(i).controls['answer'].hasError('maxlength')
-              "
-            >
-              De tekst mag niet langer zijn dan 115 tekens.
-            </mat-error>
           </div>
 
           <div

@@ -15,14 +15,17 @@ export class ChartComponent implements OnInit {
 
   dataSource;
 
+  sum: number = 0;
+
   constructor(private data: DataService) {}
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe((data) => {
       if (data) {
         this.poll.question = data.question;
-        console.log(data, "voting com");
       }
+
+      console.log(data, "voting com");
 
       this.initializeVottingGraph();
     });
@@ -31,7 +34,7 @@ export class ChartComponent implements OnInit {
   initializeVottingGraph() {
     const chartData = [];
     this.poll.answers.forEach((el) => {
-      chartData.push({ label: el.answer, value: 100 });
+      chartData.push({ label: el.answer, value: el.voteCount });
       return chartData;
     });
 
@@ -39,10 +42,11 @@ export class ChartComponent implements OnInit {
       chart: {
         caption: this.poll.question,
         captionFontColor: "#1f448a",
-        // yAxisName: "",
-        // xAxisName: "",
         paletteColors: "31BAD5",
-        theme: "fusion",
+        // xaxisname: "",
+        // yaxisname: "",
+        // numbersuffix: "K",
+        theme: "gammel",
       },
 
       data: chartData,

@@ -12,9 +12,9 @@ export class PagesComponent implements OnInit {
   subscription: Subscription;
 
   public poll: PollData = new PollData("What is the value \u03C0 ?", [
-    { answer: "3.14" },
-    { answer: "3.1416" },
-    { answer: "3.14159264" },
+    { answer: "3.14", voteCount: 0 },
+    { answer: "3.1416", voteCount: 0 },
+    { answer: "3.14159264", voteCount: 0 },
   ]);
 
   constructor(private data: DataService) {}

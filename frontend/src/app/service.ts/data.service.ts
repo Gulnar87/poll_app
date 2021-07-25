@@ -10,7 +10,7 @@ export class DataService {
   constructor() {}
 
   changeMessage(data: PollData) {
-    console.log(data, "service data");
+    // console.log(data, "service data");
 
     this.messageSource.next(data);
   }
