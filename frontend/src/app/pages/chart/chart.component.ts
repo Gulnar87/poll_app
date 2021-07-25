@@ -15,15 +15,15 @@ export class ChartComponent implements OnInit {
 
   dataSource;
 
-  sum: number = 0;
+  sum: number;
 
   constructor(private data: DataService) {}
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe((data) => {
-      if (data) {
-        this.poll.question = data.question;
-      }
+      // if (data) {
+      //   this.poll.question = data.question;
+      // }
 
       console.log(data, "voting com");
 

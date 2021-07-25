@@ -17,9 +17,7 @@ export class VotingComponent implements OnInit {
 
   subscription: Subscription;
 
-  counttt: number = 0;
-
-  counts: [] = [];
+  sumCount: number = 0;
 
   constructor(private data: DataService) {}
 
@@ -38,6 +36,10 @@ export class VotingComponent implements OnInit {
   voteForAnswer(vote) {
     console.log((vote.voteCount += 1), "count");
     console.log(vote, "voteee");
+
+    this.sumCount += 1;
+
+    this.poll.sum = this.sumCount;
 
     this.data.changeMessage(this.poll);
   }
