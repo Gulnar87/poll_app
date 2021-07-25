@@ -11,7 +11,7 @@ import { ChartComponent } from "./pages/chart/chart.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DataService } from "./service.ts/data.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatRadioModule } from "@angular/material";
+import { MatRadioModule } from "@angular/material/radio";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
