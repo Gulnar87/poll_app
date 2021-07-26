@@ -1,3 +1,7 @@
 .horizontalline {
   border-bottom: 2px solid grey;
 }
+
+h1 {
+  font-size: 35px;
+}
