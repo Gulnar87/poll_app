@@ -30,7 +30,7 @@
               matInput
               placeholder="Type an answer {{ i + 1 }}"
               class="form-control"
-              (keyup)="updateAnswer()"
+              (keydown)="updateAnswer(); preventDefault($event)"
               maxlength="81"
             />
           </div>

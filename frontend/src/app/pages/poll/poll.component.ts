@@ -46,7 +46,7 @@ export class PollComponent implements OnInit {
         ...this.poll.answers.map((el) =>
           this.fb.group({
             voteCount: el.voteCount,
-            answer: [el.answer, Validators.compose([Validators.maxLength(80)])],
+            answer: [el.answer, [Validators.maxLength(80)]],
           })
         ),
       ]),
@@ -59,6 +59,13 @@ export class PollComponent implements OnInit {
     this.data.changeMessage(this.poll);
   }
 
+  preventDefault(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
   updateAnswer() {
     this.poll.answers = this.pollForm.get("answers").value;
 
@@ -67,14 +74,13 @@ export class PollComponent implements OnInit {
     this.poll.answers.map((el, i) => {
       sum += el.voteCount;
       this.poll.sum = sum;
-      if (el.answer === "") {
+      if (el.answer == "") {
         el.voteCount = 0;
-
-        this.poll.sum -= el.voteCount;
-
         this.poll.answers.splice(i, 1);
       }
     });
+
+    console.log(this.poll.answers, "answers");
 
     this.data.changeMessage(this.poll);
   }

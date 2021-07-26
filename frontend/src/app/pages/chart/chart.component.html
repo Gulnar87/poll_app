@@ -1,9 +1,11 @@
-<fusioncharts
-  width="100%"
-  height="450"
-  type="column2d"
-  [dataSource]="dataSource"
->
-</fusioncharts>
+<div>
+  <fusioncharts
+    width="100%"
+    height="450"
+    type="column2d"
+    [dataSource]="dataSource"
+  >
+  </fusioncharts>
 
-<div>Total vote: {{ poll.sum }}</div>
+  <div class="pt-5">Total vote: {{ poll.sum }}</div>
+</div>
