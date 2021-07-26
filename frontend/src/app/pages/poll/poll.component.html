@@ -53,7 +53,7 @@
             "
           >
             <button
-              class="btn btn-outline-secondary m-1"
+              class="btn btn-outline-danger me-2 btn-sm"
               (click)="onRemoveAnswer(i)"
             >
               <i class="fa fa-times"></i>
@@ -61,7 +61,7 @@
             <button
               *ngIf="answersForms.length === i + 1 && answersForms.length <= 9"
               type="button"
-              class="btn btn-outline-secondary"
+              class="btn btn-outline-success btn-sm"
               (click)="onAddAnswer()"
             >
               Add

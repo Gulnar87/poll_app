@@ -10,10 +10,6 @@ import { PollData } from "../poll/poll.component";
 })
 export class VotingComponent implements OnInit {
   @Input() poll: PollData;
-  // = {
-  //   question: "What is the value of p?",
-  //   answers: [{ answer: "1" }, { answer: "2" }, { answer: "3" }],
-  // };
 
   vote;
 

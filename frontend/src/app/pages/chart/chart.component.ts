@@ -15,8 +15,6 @@ export class ChartComponent implements OnInit {
 
   dataSource;
 
-  sum: number;
-
   constructor(private data: DataService) {}
 
   ngOnInit() {
@@ -25,8 +23,6 @@ export class ChartComponent implements OnInit {
         this.poll.question = data.question;
         this.poll.answers = data.answers;
       }
-
-      console.log(data, "voting com");
 
       this.initializeVottingGraph();
     });
@@ -44,9 +40,6 @@ export class ChartComponent implements OnInit {
         caption: this.poll.question,
         captionFontColor: "#1f448a",
         paletteColors: "3f51b5",
-        // xaxisname: "",
-        // yaxisname: "",
-        // numbersuffix: "K",
         showYAxisValues: "0",
         theme: "gammel",
       },

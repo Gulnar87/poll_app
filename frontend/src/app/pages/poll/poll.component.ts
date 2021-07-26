@@ -29,8 +29,6 @@ export class PollData {
 export class PollComponent implements OnInit {
   public pollForm: FormGroup;
 
-  public answers: Answer[];
-
   @Input() poll: PollData;
 
   @Output() shareData: EventEmitter<any> = new EventEmitter<any>();
@@ -39,43 +37,20 @@ export class PollComponent implements OnInit {
 
   ngOnInit() {
     this.initializeFormGroup();
-
-    // this.pollForm.controls["question"].disable();
-    // this.pollForm.controls["question"].hasError("maxlength");
   }
 
   initializeFormGroup(): void {
     this.pollForm = this.fb.group({
       question: [this.poll.question, Validators.maxLength(80)],
-      answers: this.fb.array(
-        // this.poll.answers && this.poll.answers.length > 0
-        // ?
-        [
-          ...this.poll.answers.map((el) =>
-            this.fb.group({
-              voteCount: el.voteCount,
-              answer: [
-                el.answer,
-                Validators.compose([Validators.maxLength(80)]),
-              ],
-            })
-          ),
-        ]
-        // : [
-        //     ...[new Answer(undefined, 0)].map((el) =>
-        //       this.fb.group({
-        //         voteCount: el.voteCount,
-        //         answer: [el.answer, Validators.maxLength(80)],
-        //       })
-        //     ),
-        //   ]
-      ),
+      answers: this.fb.array([
+        ...this.poll.answers.map((el) =>
+          this.fb.group({
+            voteCount: el.voteCount,
+            answer: [el.answer, Validators.compose([Validators.maxLength(80)])],
+          })
+        ),
+      ]),
     });
-
-    // if (this.pollForm.controls["question"].hasError("maxlength")) {
-    //   this.pollForm.controls["question"].disable();
-    // this.pollForm.get('endDate').disable();
-    // }
   }
 
   updateQuestion() {
@@ -87,9 +62,17 @@ export class PollComponent implements OnInit {
   updateAnswer() {
     this.poll.answers = this.pollForm.get("answers").value;
 
-    this.poll.answers.map((el) => {
+    let sum: number = 0;
+
+    this.poll.answers.map((el, i) => {
+      sum += el.voteCount;
+      this.poll.sum = sum;
       if (el.answer === "") {
-        el.voteCount = null;
+        el.voteCount = 0;
+
+        this.poll.sum -= el.voteCount;
+
+        this.poll.answers.splice(i, 1);
       }
     });
 
@@ -123,6 +106,8 @@ export class PollComponent implements OnInit {
 
       this.updateAnswer();
     }
+
+    console.log(this.poll.answers.length, "length on remove");
   }
 
   resetForm() {
