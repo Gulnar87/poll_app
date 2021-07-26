@@ -47,6 +47,7 @@ export class ChartComponent implements OnInit {
         // xaxisname: "",
         // yaxisname: "",
         // numbersuffix: "K",
+        showYAxisValues: "0",
         theme: "gammel",
       },
 

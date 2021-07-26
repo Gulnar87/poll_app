@@ -1,0 +1,7 @@
+.verticalLine {
+  border-right: 2px solid grey;
+}
+
+.row {
+  height: 90vh;
+}
