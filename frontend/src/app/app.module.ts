@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatCardModule } from "@angular/material/card";
 
 import { FusionChartsModule } from "angular-fusioncharts";
 
@@ -43,6 +44,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     MatButtonModule,
     MatFormFieldModule,
     FusionChartsModule,
+    MatCardModule,
     BrowserAnimationsModule,
   ],
   providers: [DataService],

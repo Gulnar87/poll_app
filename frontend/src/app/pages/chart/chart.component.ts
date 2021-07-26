@@ -21,9 +21,10 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe((data) => {
-      // if (data) {
-      //   this.poll.question = data.question;
-      // }
+      if (data) {
+        this.poll.question = data.question;
+        this.poll.answers = data.answers;
+      }
 
       console.log(data, "voting com");
 
@@ -42,7 +43,7 @@ export class ChartComponent implements OnInit {
       chart: {
         caption: this.poll.question,
         captionFontColor: "#1f448a",
-        paletteColors: "31BAD5",
+        paletteColors: "3f51b5",
         // xaxisname: "",
         // yaxisname: "",
         // numbersuffix: "K",

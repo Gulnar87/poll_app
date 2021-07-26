@@ -11,7 +11,7 @@ import { DataService } from "src/app/service.ts/data.service";
 
 export class Answer {
   // public voteCount?: number = 0;
-  constructor(public answer: string, public voteCount) {}
+  constructor(public answer: string, public voteCount: number) {}
 }
 
 export class PollData {
@@ -46,20 +46,25 @@ export class PollComponent implements OnInit {
 
   initializeFormGroup(): void {
     this.pollForm = this.fb.group({
-      question: [this.poll.question, [Validators.maxLength(80)]],
+      question: [this.poll.question, Validators.maxLength(80)],
       answers: this.fb.array(
         // this.poll.answers && this.poll.answers.length > 0
         // ?
         [
           ...this.poll.answers.map((el) =>
             this.fb.group({
-              answer: [el.answer, Validators.maxLength(80)],
+              voteCount: el.voteCount,
+              answer: [
+                el.answer,
+                Validators.compose([Validators.maxLength(80)]),
+              ],
             })
           ),
         ]
         // : [
-        //     ...[new Answer(undefined)].map((el) =>
+        //     ...[new Answer(undefined, 0)].map((el) =>
         //       this.fb.group({
+        //         voteCount: el.voteCount,
         //         answer: [el.answer, Validators.maxLength(80)],
         //       })
         //     ),
@@ -73,13 +78,20 @@ export class PollComponent implements OnInit {
     // }
   }
 
-  updateQuestion(data) {
-    this.poll.question = data.value;
+  updateQuestion() {
+    this.poll.question = this.pollForm.get("question").value;
+
     this.data.changeMessage(this.poll);
   }
 
   updateAnswer() {
     this.poll.answers = this.pollForm.get("answers").value;
+
+    this.poll.answers.map((el) => {
+      if (el.answer === "") {
+        el.voteCount = null;
+      }
+    });
 
     this.data.changeMessage(this.poll);
   }
@@ -97,6 +109,7 @@ export class PollComponent implements OnInit {
   createAnswer(): FormGroup {
     return this.fb.group({
       answer: ["", Validators.maxLength(80)],
+      voteCount: 0,
     });
   }
 
@@ -113,6 +126,17 @@ export class PollComponent implements OnInit {
   }
 
   resetForm() {
-    this.pollForm.reset();
+    this.pollForm.reset({
+      question: "What is the value \u03C0 ?",
+      answers: [
+        { answer: "3.14", voteCount: 4 },
+        { answer: "3.1416", voteCount: 3 },
+        { answer: "3.14159264", voteCount: 4 },
+      ],
+      sum: 11,
+    });
+
+    this.updateQuestion();
+    this.updateAnswer();
   }
 }

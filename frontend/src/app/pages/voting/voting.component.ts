@@ -17,8 +17,6 @@ export class VotingComponent implements OnInit {
 
   subscription: Subscription;
 
-  sumCount: number = 0;
-
   constructor(private data: DataService) {}
 
   ngOnInit() {
@@ -29,18 +27,11 @@ export class VotingComponent implements OnInit {
         // console.log(data, "voting com");
       }
     });
-
-    console.log(this.poll.answers, "answers");
   }
 
   voteForAnswer(vote) {
-    console.log((vote.voteCount += 1), "count");
-    console.log(vote, "voteee");
-
-    this.sumCount += 1;
-
-    this.poll.sum = this.sumCount;
-
+    vote.voteCount += 1;
+    this.poll.sum += 1;
     this.data.changeMessage(this.poll);
   }
 }

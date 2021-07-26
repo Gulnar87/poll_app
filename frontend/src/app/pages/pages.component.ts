@@ -14,11 +14,11 @@ export class PagesComponent implements OnInit {
   public poll: PollData = new PollData(
     "What is the value \u03C0 ?",
     [
-      { answer: "3.14", voteCount: 0 },
-      { answer: "3.1416", voteCount: 0 },
-      { answer: "3.14159264", voteCount: 0 },
+      { answer: "3.14", voteCount: 4 },
+      { answer: "3.1416", voteCount: 3 },
+      { answer: "3.14159264", voteCount: 4 },
     ],
-    0
+    11
   );
 
   constructor(private data: DataService) {}

@@ -1,76 +1,97 @@
-<form [formGroup]="pollForm" id="pollForm">
-  <div class="row">
-    <div class="col-12">
-      <input
-        formControlName="question"
-        id="question"
-        type="text"
-        class="form-control"
-        (keyup)="updateQuestion($event.target)"
-      />
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="pollForm" id="pollForm">
+      <div class="row">
+        <div class="col-9">
+          <input
+            formControlName="question"
+            id="question"
+            type="text"
+            class="form-control"
+            (keyup)="updateQuestion()"
+            maxlength="81"
+          />
 
-      <mat-error *ngIf="pollForm.controls['question'].hasError('maxlength')">
-        De tekst mag niet langer zijn dan 115 tekens.
-      </mat-error>
-    </div>
-    <div class="col-12">
-      <div
-        formArrayName="answers"
-        *ngFor="let item of answersForms.controls; let i = index"
-        class="mb-2 mt-2"
-      >
-        <div class="row" [formGroupName]="i">
-          <div class="col-md-10 col-12 mt-3 d-flex align-items-center">
-            <input
-              formControlName="answer"
-              matInput
-              placeholder="Type an answer {{ i + 1 }}"
-              class="form-control"
-              (keyup)="updateAnswer()"
-            />
-          </div>
-
-          <div
-            class="
-              col-md-2 col-12
-              action-buttons
-              d-flex
-              align-items-center
-              mt-3
-            "
+          <mat-error
+            class="px-1"
+            *ngIf="pollForm.controls['question'].hasError('maxlength')"
           >
-            <button
-              *ngIf="answersForms.value[i].answer"
-              class="btn btn-outline-secondary"
-              (click)="onRemoveAnswer(i)"
-            >
-              <i class="fa fa-times"></i>
-            </button>
-            <button
-              *ngIf="answersForms.length === i + 1 && answersForms.length <= 9"
-              type="button"
-              class="btn btn-outline-secondary"
-              (click)="onAddAnswer()"
-            >
-              Add
-            </button>
+            Max 80 characters are allowed
+          </mat-error>
+        </div>
+        <div class="col-12">
+          <div
+            formArrayName="answers"
+            *ngFor="let item of answersForms.controls; let i = index"
+            class="mb-2 mt-2"
+          >
+            <div class="row" [formGroupName]="i">
+              <div class="col-9 mt-3 d-flex align-items-center">
+                <input
+                  formControlName="answer"
+                  matInput
+                  placeholder="Type an answer {{ i + 1 }}"
+                  class="form-control"
+                  (keyup)="updateAnswer()"
+                  maxlength="81"
+                />
+
+                <mat-error
+                  class=""
+                  *ngIf="
+                    getAnswersFormGroup(i).controls['answer'].hasError(
+                      'maxlength'
+                    )
+                  "
+                >
+                  Max 80 characters are allowed
+                </mat-error>
+              </div>
+
+              <div
+                class="
+                  col-md-2 col-12
+                  action-buttons
+                  d-flex
+                  align-items-center
+                  mt-3
+                "
+              >
+                <button
+                  class="btn btn-outline-secondary m-1"
+                  (click)="onRemoveAnswer(i)"
+                >
+                  <i class="fa fa-times"></i>
+                </button>
+                <button
+                  *ngIf="
+                    answersForms.length === i + 1 && answersForms.length <= 9
+                  "
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  (click)="onAddAnswer()"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-12 d-flex justify-content-between mt-5">
-      <div>
-        <span>{{ poll.answers.length }}</span
-        >/10 possible answers
+        <div class="col-12 d-flex justify-content-between mt-5">
+          <div>
+            <span>{{ poll.answers.length }}</span
+            >/10 possible answers
+          </div>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
       </div>
-      <button
-        type="button"
-        class="btn btn-outline-secondary"
-        (click)="resetForm()"
-      >
-        Reset
-      </button>
-    </div>
-  </div>
-</form>
+    </form>
+  </mat-card-content>
+</mat-card>

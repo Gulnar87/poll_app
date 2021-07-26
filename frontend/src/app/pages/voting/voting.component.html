@@ -1,27 +1,32 @@
-<div class="row">
-  <h2>
-    {{ poll.question }}
-  </h2>
+<mat-card>
+  <mat-card-content>
+    <div class="row">
+      <h2>
+        {{ poll.question }}
+      </h2>
 
-  <mat-radio-group [(ngModel)]="vote" name="vote">
-    <div *ngFor="let answer of poll.answers">
-      <mat-radio-button
-        *ngIf="answer.answer"
-        class="col-12 p-3"
-        [value]="answer"
-      >
-        {{ answer.answer }}
-      </mat-radio-button>
+      <mat-radio-group [(ngModel)]="vote" name="vote">
+        <div *ngFor="let answer of poll.answers">
+          <mat-radio-button
+            *ngIf="answer.answer"
+            class="col-12 p-3"
+            [value]="answer"
+            color="primary"
+          >
+            {{ answer.answer }}
+          </mat-radio-button>
+        </div>
+      </mat-radio-group>
+
+      <div class="col-12 d-flex justify-content-end mt-5">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="voteForAnswer(vote)"
+        >
+          Vote
+        </button>
+      </div>
     </div>
-  </mat-radio-group>
-
-  <div class="col-12 d-flex justify-content-between mt-5">
-    <button
-      type="button"
-      class="btn btn-outline-secondary"
-      (click)="voteForAnswer(vote)"
-    >
-      Vote
-    </button>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>
