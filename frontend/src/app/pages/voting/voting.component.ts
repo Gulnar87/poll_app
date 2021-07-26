@@ -15,6 +15,8 @@ export class VotingComponent implements OnInit {
   //   answers: [{ answer: "1" }, { answer: "2" }, { answer: "3" }],
   // };
 
+  vote;
+
   subscription: Subscription;
 
   constructor(private data: DataService) {}
