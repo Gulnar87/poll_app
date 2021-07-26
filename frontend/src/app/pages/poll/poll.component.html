@@ -35,18 +35,17 @@
                   (keyup)="updateAnswer()"
                   maxlength="81"
                 />
-
-                <mat-error
-                  class=""
-                  *ngIf="
-                    getAnswersFormGroup(i).controls['answer'].hasError(
-                      'maxlength'
-                    )
-                  "
-                >
-                  Max 80 characters are allowed
-                </mat-error>
               </div>
+
+              <mat-error
+                *ngIf="
+                  getAnswersFormGroup(i).controls['answer'].hasError(
+                    'maxlength'
+                  )
+                "
+              >
+                Max 80 characters are allowed
+              </mat-error>
 
               <div
                 class="
