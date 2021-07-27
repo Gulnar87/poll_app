@@ -19,9 +19,11 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe((data) => {
+
+      console.log(data, "data 1")
       if (data) {
-        this.poll.question = data.question;
-        this.poll.answers = data.answers;
+      this.poll = data;
+   
       }
 
       this.initializeVottingGraph();

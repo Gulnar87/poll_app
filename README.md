@@ -20,7 +20,7 @@ So to get project to run you need to install:
 
 In order to run your project you need to:
 
-1. Run the frontend project:
+Run the frontend project:
     ```sh
     cd frontend/
     npm install

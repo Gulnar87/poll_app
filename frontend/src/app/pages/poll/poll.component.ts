@@ -10,7 +10,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataService } from "src/app/service.ts/data.service";
 
 export class Answer {
-  // public voteCount?: number = 0;
   constructor(public answer: string, public voteCount: number) {}
 }
 
@@ -67,21 +66,19 @@ export class PollComponent implements OnInit {
   }
 
   updateAnswer() {
-    this.poll.answers = this.pollForm.get("answers").value;
+    this.poll.answers =  this.pollForm.get("answers").value;
 
     let sum: number = 0;
 
     this.poll.answers.map((el, i) => {
       sum += el.voteCount;
       this.poll.sum = sum;
-      if (el.answer == "") {
-        el.voteCount = 0;
+      if (el.answer === "") {
+        // el.voteCount = 0;
+        this.getAnswersFormGroup(i).controls["voteCount"].setValue(0)
         this.poll.answers.splice(i, 1);
       }
     });
-
-    console.log(this.poll.answers, "answers");
-
     this.data.changeMessage(this.poll);
   }
 
@@ -113,7 +110,6 @@ export class PollComponent implements OnInit {
       this.updateAnswer();
     }
 
-    console.log(this.poll.answers.length, "length on remove");
   }
 
   resetForm() {
