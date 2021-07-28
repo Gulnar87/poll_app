@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { PollData } from "../pages/poll/poll.component";
+import { PollData } from "../objects/poll.object";
+
 
 @Injectable()
 export class DataService {

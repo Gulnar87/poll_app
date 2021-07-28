@@ -2,24 +2,13 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
 } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PollData } from "src/app/objects/poll.object";
 import { DataService } from "src/app/service.ts/data.service";
 
-export class Answer {
-  constructor(public answer: string, public voteCount: number) {}
-}
-
-export class PollData {
-  constructor(
-    public question: string,
-    public answers: Answer[],
-    public sum: number
-  ) {}
-}
 @Component({
   selector: "app-poll",
   templateUrl: "./poll.component.html",
@@ -27,9 +16,7 @@ export class PollData {
 })
 export class PollComponent implements OnInit {
   public pollForm: FormGroup;
-
   @Input() poll: PollData;
-
   @Output() shareData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder, private data: DataService) {}
@@ -54,7 +41,6 @@ export class PollComponent implements OnInit {
 
   updateQuestion() {
     this.poll.question = this.pollForm.get("question").value;
-
     this.data.changeMessage(this.poll);
   }
 
@@ -66,15 +52,13 @@ export class PollComponent implements OnInit {
   }
 
   updateAnswer() {
-    this.poll.answers =  this.pollForm.get("answers").value;
-
     let sum: number = 0;
+    this.poll.answers =  this.pollForm.get("answers").value;
 
     this.poll.answers.map((el, i) => {
       sum += el.voteCount;
       this.poll.sum = sum;
-      if (el.answer === "") {
-        // el.voteCount = 0;
+      if (el.answer === "" || el.answer === null) {
         this.getAnswersFormGroup(i).controls["voteCount"].setValue(0)
         this.poll.answers.splice(i, 1);
       }
@@ -114,8 +98,7 @@ export class PollComponent implements OnInit {
 
   resetForm() {
     this.pollForm.reset();
-
     this.updateQuestion();
-    this.updateAnswer();
+    this.updateAnswer();  
   }
 }

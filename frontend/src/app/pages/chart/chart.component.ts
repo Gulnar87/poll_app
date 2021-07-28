@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
+import { PollData } from "src/app/objects/poll.object";
 import { DataService } from "src/app/service.ts/data.service";
-import { PollData } from "../poll/poll.component";
+
 
 @Component({
   selector: "app-chart",
@@ -10,22 +11,16 @@ import { PollData } from "../poll/poll.component";
 })
 export class ChartComponent implements OnInit {
   @Input() poll: PollData;
-
   subscription: Subscription;
-
   dataSource;
 
   constructor(private data: DataService) {}
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe((data) => {
-
-      console.log(data, "data 1")
       if (data) {
       this.poll = data;
-   
       }
-
       this.initializeVottingGraph();
     });
   }
@@ -45,7 +40,6 @@ export class ChartComponent implements OnInit {
         showYAxisValues: "0",
         theme: "gammel",
       },
-
       data: chartData,
     };
   }

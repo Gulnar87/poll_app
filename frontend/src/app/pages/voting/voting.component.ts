@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
+import { PollData } from "src/app/objects/poll.object";
 import { DataService } from "src/app/service.ts/data.service";
-import { PollData } from "../poll/poll.component";
+
 
 @Component({
   selector: "app-voting",
@@ -10,9 +11,7 @@ import { PollData } from "../poll/poll.component";
 })
 export class VotingComponent implements OnInit {
   @Input() poll: PollData;
-
   vote;
-
   subscription: Subscription;
 
   constructor(private data: DataService) {}
@@ -20,9 +19,7 @@ export class VotingComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe((data) => {
       if (data) {
-        this.poll.question = data.question;
-        this.poll.answers = data.answers;
-        // console.log(data, "voting com");
+        this.poll = data;
       }
     });
   }

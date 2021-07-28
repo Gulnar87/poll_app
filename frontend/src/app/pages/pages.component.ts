@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
+import { PollData } from "../objects/poll.object";
 import { DataService } from "../service.ts/data.service";
-import { PollData } from "./poll/poll.component";
+
 
 @Component({
   selector: "app-pages",
