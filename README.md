@@ -24,7 +24,7 @@ In order to run your project you need to:
     ```sh
     cd frontend/
     npm install
-    ng serve
+    npm run start
     ```
 
 ## Contributors
