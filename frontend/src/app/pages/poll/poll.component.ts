@@ -113,15 +113,7 @@ export class PollComponent implements OnInit {
   }
 
   resetForm() {
-    this.pollForm.reset({
-      question: "What is the value \u03C0 ?",
-      answers: [
-        { answer: "3.14", voteCount: 4 },
-        { answer: "3.1416", voteCount: 3 },
-        { answer: "3.14159264", voteCount: 4 },
-      ],
-      sum: 11,
-    });
+    this.pollForm.reset();
 
     this.updateQuestion();
     this.updateAnswer();
