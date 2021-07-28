@@ -6,7 +6,6 @@
   <mat-radio-group [(ngModel)]="vote" name="vote">
     <div *ngFor="let answer of poll.answers">
       <mat-radio-button
-        *ngIf="answer.answer"
         class="col-12 p-3"
         [value]="answer"
         color="primary"

@@ -6,7 +6,7 @@
         id="question"
         type="text"
         class="form-control"
-        (keyup)="updateQuestion()"
+        (keyup)="updatePoll()"
         maxlength="81"
       />
 
@@ -27,7 +27,7 @@
               matInput
               placeholder="Type an answer"
               class="form-control"
-              (keydown)="updateAnswer(); preventDefault($event)"
+              (keyup)="updatePoll(); preventDefault($event.target)"
               maxlength="81"
             />
            

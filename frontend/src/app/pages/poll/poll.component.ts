@@ -6,6 +6,7 @@ import {
   Output,
 } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Answer } from "src/app/objects/answer.object";
 import { PollData } from "src/app/objects/poll.object";
 import { DataService } from "src/app/service.ts/data.service";
 
@@ -28,20 +29,23 @@ export class PollComponent implements OnInit {
   initializeFormGroup(): void {
     this.pollForm = this.fb.group({
       question: [this.poll.question, Validators.maxLength(80)],
-      answers: this.fb.array([
+      answers: this.fb.array(
+
+        this.poll.answers && this.poll.answers.length > 0 ?
+        [
         ...this.poll.answers.map((el) =>
           this.fb.group({
             voteCount: el.voteCount,
             answer: [el.answer, [Validators.maxLength(80)]],
           })
         ),
-      ]),
+      ] :  [...([new Answer(undefined, null)]).map(el => this.fb.group({
+             votecount: el.voteCount,
+             answer: [el.answer, Validators.maxLength(80)],
+          }))]
+      
+      ),
     });
-  }
-
-  updateQuestion() {
-    this.poll.question = this.pollForm.get("question").value;
-    this.data.changeMessage(this.poll);
   }
 
   preventDefault(event) {
@@ -51,19 +55,27 @@ export class PollComponent implements OnInit {
     }
   }
 
-  updateAnswer() {
-    let sum: number = 0;
-    this.poll.answers =  this.pollForm.get("answers").value;
+  updatePoll() {
 
-    this.poll.answers.map((el, i) => {
-      sum += el.voteCount;
-      this.poll.sum = sum;
-      if (el.answer === "" || el.answer === null) {
-        this.getAnswersFormGroup(i).controls["voteCount"].setValue(0)
-        this.poll.answers.splice(i, 1);
+    const poll = new PollData();
+    poll.sum = 0
+    poll.question = this.pollForm.get('question').value;
+
+    poll.answers = this.pollForm.controls['answers'].value.map((el, i)=> {
+      if(!el.answer || el.answeer === ""){
+ 
+      ((this.pollForm.get("answers") as FormArray).controls[i] as FormGroup).controls["voteCount"].setValue(0)
+       poll.sum -= el.voteCount;
       }
-    });
-    this.data.changeMessage(this.poll);
+      
+      poll.sum += el.voteCount;
+
+       return el ;
+    })
+    .filter((el) => el.answer)
+
+    this.poll.answers.length = poll.answers.length;
+    this.data.changeMessage(poll);
   }
 
   get answersForms() {
@@ -90,15 +102,12 @@ export class PollComponent implements OnInit {
   onRemoveAnswer(index) {
     if ((this.pollForm.get("answers") as FormArray).length > 2) {
       (this.pollForm.get("answers") as FormArray).removeAt(index);
-
-      this.updateAnswer();
+      this.updatePoll();
     }
-
   }
 
   resetForm() {
     this.pollForm.reset();
-    this.updateQuestion();
-    this.updateAnswer();  
+    this.updatePoll();  
   }
 }

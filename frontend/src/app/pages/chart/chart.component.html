@@ -7,5 +7,5 @@
   >
   </fusioncharts>
 
-  <div class="pt-5">Total vote: {{ poll.sum }}</div>
+  <div class="pt-5">Total vote: {{ poll.sum ? poll.sum : 0 }}</div>
 </div>
