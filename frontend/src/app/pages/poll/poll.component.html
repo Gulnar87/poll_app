@@ -10,11 +10,8 @@
         maxlength="81"
       />
 
-      <mat-error
-        class="px-1"
-        *ngIf="pollForm.controls['question'].hasError('maxlength')"
-      >
-        Max 80 characters are allowed
+      <mat-error *ngIf="pollForm.controls['question'].hasError('maxlength')">
+        <div class="pt-2">  Max 80 characters are allowed</div>
       </mat-error>
     </div>
     <div class="col-12">
@@ -28,45 +25,37 @@
             <input
               formControlName="answer"
               matInput
-              placeholder="Type an answer {{ i + 1 }}"
+              placeholder="Type an answer"
               class="form-control"
               (keydown)="updateAnswer(); preventDefault($event)"
               maxlength="81"
             />
+           
           </div>
-
-          <mat-error
-            *ngIf="
-              getAnswersFormGroup(i).controls['answer'].hasError('maxlength')
-            "
-          >
-            Max 80 characters are allowed
-          </mat-error>
-
           <div
             class="
               col-md-2 col-12
               action-buttons
               d-flex
               align-items-center
-              mt-3
-            "
-          >
+              mt-3">
             <button
               class="btn btn-outline-danger me-2 btn-sm"
-              (click)="onRemoveAnswer(i)"
-            >
+              (click)="onRemoveAnswer(i)">
               <i class="fa fa-times"></i>
             </button>
             <button
               *ngIf="answersForms.length === i + 1 && answersForms.length <= 9"
               type="button"
               class="btn btn-outline-success btn-sm"
-              (click)="onAddAnswer()"
-            >
+              (click)="onAddAnswer()">
               Add
             </button>
           </div>
+
+          <mat-error *ngIf="getAnswersFormGroup(i).controls['answer'].hasError('maxlength')">
+            <div class="pt-2"> Max 80 characters are allowed</div>
+          </mat-error>
         </div>
       </div>
     </div>
