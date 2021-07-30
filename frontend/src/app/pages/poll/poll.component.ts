@@ -56,7 +56,6 @@ export class PollComponent implements OnInit {
   }
 
   updatePoll() {
-
     const poll = new PollData();
     poll.sum = 0
     poll.question = this.pollForm.get('question').value;

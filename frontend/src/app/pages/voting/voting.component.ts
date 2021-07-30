@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PollData } from "src/app/objects/poll.object";
 import { DataService } from "src/app/service.ts/data.service";
@@ -9,7 +9,7 @@ import { DataService } from "src/app/service.ts/data.service";
   templateUrl: "./voting.component.html",
   styleUrls: ["./voting.component.css"],
 })
-export class VotingComponent implements OnInit {
+export class VotingComponent implements OnInit, OnDestroy {
   @Input() poll: PollData;
   vote;
   subscription: Subscription;
@@ -28,5 +28,9 @@ export class VotingComponent implements OnInit {
     vote.voteCount += 1;
     this.poll.sum += 1;
     this.data.changeMessage(this.poll);
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
   }
 }

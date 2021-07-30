@@ -1,8 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, OnInit } from "@angular/core";
 import { PollData } from "../objects/poll.object";
-import { DataService } from "../service.ts/data.service";
-
 
 @Component({
   selector: "app-pages",
@@ -10,7 +7,6 @@ import { DataService } from "../service.ts/data.service";
   styleUrls: ["./pages.component.css"],
 })
 export class PagesComponent implements OnInit {
-  subscription: Subscription;
 
   public poll: PollData = new PollData(
     "What is the value \u03C0 ?",
@@ -22,7 +18,7 @@ export class PagesComponent implements OnInit {
     11
   );
 
-  constructor(private data: DataService) {}
+  constructor() {}
 
   ngOnInit() {}
 }

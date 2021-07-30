@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PollData } from "src/app/objects/poll.object";
 import { DataService } from "src/app/service.ts/data.service";
@@ -9,7 +9,7 @@ import { DataService } from "src/app/service.ts/data.service";
   templateUrl: "./chart.component.html",
   styleUrls: ["./chart.component.css"],
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnDestroy {
   @Input() poll: PollData;
   subscription: Subscription;
   dataSource;
@@ -42,5 +42,9 @@ export class ChartComponent implements OnInit {
       },
       data: chartData,
     };
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
   }
 }
